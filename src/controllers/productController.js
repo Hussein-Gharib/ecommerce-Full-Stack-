@@ -65,6 +65,8 @@ const getProductById = async (req, res) => {
 
 
 const createProduct = async (req, res) => {
+  console.log('🧾 req.body in createProduct:', req.body);
+
   const { name, description, price, stock, image_url, category_id } = req.body;
 
   if (!name || !price) {
@@ -77,7 +79,7 @@ const createProduct = async (req, res) => {
         (name, description, price, stock, image_url, category_id)
        VALUES ($1, $2, $3, $4, $5, $6)
        RETURNING *`,
-      [name, description, price, stock, image_url, category_id]
+      [name, description || null, price, stock ?? 0, image_url || null, category_id || null]
     );
 
     res.status(201).json({ status: 'ok', data: result.rows[0] });
@@ -86,6 +88,7 @@ const createProduct = async (req, res) => {
     res.status(500).json({ status: 'error', message: 'Failed to create product' });
   }
 };
+
 
 
 const updateProduct = async (req, res) => {
