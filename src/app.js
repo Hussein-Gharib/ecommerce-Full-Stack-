@@ -3,6 +3,8 @@ const cors = require('cors');
 const db = require('./db/db');
 const productRoutes = require('./routes/productRoutes');
 const authRoutes = require('./routes/authRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+
 
 const app = express();
 
@@ -58,6 +60,6 @@ app.use('/api/products', productRoutes);
 
 app.use('/api/auth', authRoutes);
 
-app.use('/api/auth', authRoutes);
+app.use('/api/orders', orderRoutes);
 
 module.exports = app;
